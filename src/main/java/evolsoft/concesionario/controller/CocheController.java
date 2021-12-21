@@ -93,7 +93,9 @@ public class CocheController {
 		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(),
 		soldCarDTO.getIdVendedor());
 	}
-
+	/*
+	*Insertamos lista en el servicio
+	*/
 	@PostMapping("/insertList")
 	public void createList(@RequestBody List<CocheDTO> listCocheDto) {
 		cocheService.createList(listCocheDto);
