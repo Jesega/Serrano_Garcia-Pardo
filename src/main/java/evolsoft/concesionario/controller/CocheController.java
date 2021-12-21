@@ -77,4 +77,20 @@ public class CocheController {
 //		return cocheService.findCochesInStock();
 //	}
 	
+	@GetMapping("/sortedByPrice")
+	public List<CocheDTO> listCochesSortedByPrice(@RequestParam(required = false) Integer page,
+		@RequestParam(required = false) Integer size) {
+			return cocheService.listCochesSortedByPrice(page, size);
+	}
+
+	@GetMapping("/sold")
+	public List<CocheDTO> findCarsAlreadySold() {
+		return cocheService.findCarsAlreadySold();
+	}
+
+	@PutMapping("/sellCar")
+	public void sellCar(@RequestBody SoldCarDTO soldCarDTO) throws NotFoundExcept {
+		cocheService.newSell(soldCarDTO.getIdCoche(), soldCarDTO.getIdCliente(),
+		soldCarDTO.getIdVendedor());
+	}
 }

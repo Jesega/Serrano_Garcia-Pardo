@@ -129,7 +129,7 @@ public class CocheServiceImpl implements CocheService {
 
 	@Override
 	public void newSell(Integer idCoche, Integer idCliente, Integer idVendedor) throws NotFoundExcept {
-		Coche soldCar = cocheDAO.findOne(idCoche);
+		Coche soldCar = Optional.ofNullable(cocheDAO.findOne(idCoche)).orElseThrow(() -> new NotFoundExcept());
 		soldCar.setFechaVenta(todaysDate());
 		addClienteToSoldCar(idCliente, soldCar);
 		addVendedorToSoldCar(idVendedor, soldCar);
@@ -149,9 +149,12 @@ public class CocheServiceImpl implements CocheService {
 	}
 	
 	private String todaysDate() {
-	Date today = Calendar.getInstance().getTime();
-	return today.toString();
-}
-
+		Date today = Calendar.getInstance().getTime();
+		return today.toString();
+	}
+	@Override
+	public void createList(List<CocheDTO> listCocheDto) {
+		listCocheDto.forEach(cocheDTO -> cocheDAO.save(map(cocheDTO)));
+	}
 
 }
